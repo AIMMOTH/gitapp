@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<servlet>
+		<servlet-name>signin</servlet-name>
+		<servlet-class>se.ce.gitapp.SignInServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>signin</servlet-name>
+		<url-pattern>/signin/</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>signout</servlet-name>
+		<servlet-class>se.ce.gitapp.SignOutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>signout</servlet-name>
+		<url-pattern>/signout/</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>email</servlet-name>
+		<servlet-class>se.ce.gitapp.EmailServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>email</servlet-name>
+		<url-pattern>/email/</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Welcome page -->
+	<welcome-file-list>
+		<welcome-file>index.htm</welcome-file>
+	</welcome-file-list>
+
+</web-app>
