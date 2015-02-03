@@ -1,6 +1,8 @@
 package se.ce.gitapp;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -27,7 +29,18 @@ public class SignInServlet extends HttpServlet {
 		ServletContext context = config.getServletContext();
 
 		try {
-			properties.load(context.getResourceAsStream("WEB-INF/gitapp.properties"));
+			if (context == null) 
+				log.warning("context!");
+			
+			InputStream stream = context.getResourceAsStream("/WEB-INF/gitapp.properties");
+			
+			if (stream == null)
+				log.warning("stream!");
+			
+			if (properties == null) {
+				log.warning("Properties!");
+			}
+			properties.load(stream);
 
 			gitkitClient = GitkitClient
 					.newBuilder()
