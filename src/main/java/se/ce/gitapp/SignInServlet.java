@@ -1,6 +1,5 @@
 package se.ce.gitapp;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -29,25 +28,20 @@ public class SignInServlet extends HttpServlet {
 		ServletContext context = config.getServletContext();
 
 		try {
-			if (context == null) 
-				log.warning("context!");
-			
 			InputStream stream = context.getResourceAsStream("/WEB-INF/gitapp.properties");
-			
-			if (stream == null)
-				log.warning("stream!");
-			
-			if (properties == null) {
-				log.warning("Properties!");
-			}
 			properties.load(stream);
+			
+			String googleClientId = properties.getProperty("googleClientId");
+			String serviceAccountEmail = properties.getProperty("serviceAccountEmail");
+			
+			log.info("Client id:" + googleClientId + "\nService Email:" + serviceAccountEmail);
 
 			gitkitClient = GitkitClient
 					.newBuilder()
-					.setGoogleClientId(properties.getProperty("googleClientId"))
-					.setServiceAccountEmail(properties.getProperty("serviceAccountEmail"))
-					.setKeyStream(context.getResourceAsStream("WEB-INF/git-app-819348d8b50f.p12"))
-					.setWidgetUrl("http://git-app.appspot.com")
+					.setGoogleClientId(googleClientId)
+					.setServiceAccountEmail(serviceAccountEmail)
+					.setKeyStream(context.getResourceAsStream("/WEB-INF/git-app-88ec35752eb3.p12"))
+					.setWidgetUrl("http://git-app.appspot.com/widget.htm")
 					.setCookieName("gtoken")
 					.build();
 		} catch (IOException e) {
