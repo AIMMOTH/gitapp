@@ -1,5 +1,6 @@
 package se.ce.gitapp;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -36,12 +37,16 @@ public class SignInServlet extends HttpServlet {
 			
 			log.info("Client id:" + googleClientId + "\nService Email:" + serviceAccountEmail);
 
+			InputStream keyStream = new FileInputStream(context.getRealPath("/WEB-INF/git-app-b70e81cca2b3.p12"));
+			
+			log.info("Getting p12-file " + keyStream.available() + "b");
+			
 			gitkitClient = GitkitClient
 					.newBuilder()
 					.setGoogleClientId(googleClientId)
 					.setServiceAccountEmail(serviceAccountEmail)
-					.setKeyStream(context.getResourceAsStream("/WEB-INF/git-app-88ec35752eb3.p12"))
-					.setWidgetUrl("http://git-app.appspot.com/widget.htm")
+					.setKeyStream(keyStream)
+					.setWidgetUrl("http://git-app.appspot.com/widget.jsp")
 					.setCookieName("gtoken")
 					.build();
 		} catch (IOException e) {
